@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="buildingCompanyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Contract">
+    <Key>
+      <PropertyRef Name="Number" />
+    </Key>
+    <Property Name="Number" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClientSurname" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ClientName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ClientPatronymic" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TelephoneNumber" Type="Int64" Nullable="false" />
+    <Property Name="Cost" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Document" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="AdditionalDescription" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="EndDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="UsedMaterials" Relationship="Self.FK__UsedMater__Contr__73BA3083" FromRole="Contracts" ToRole="UsedMaterials" />
+    <NavigationProperty Name="workSchedules" Relationship="Self.FK__workSched__Contr__76969D2E" FromRole="Contracts" ToRole="workSchedule" />
+  </EntityType>
+  <EntityType Name="Employe">
+    <Key>
+      <PropertyRef Name="RegistrationNumber" />
+    </Key>
+    <Property Name="RegistrationNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Surname" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name_" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Patronymic" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Team" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Position" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Free" Type="Boolean" />
+    <Property Name="Salary" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="DateStartWork" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="DateStopWork" Type="DateTime" Precision="0" />
+    <Property Name="AdditionalDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="TelephoneNumber" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="Teams" Relationship="Self.FK__Teams__Cheif__6B24EA82" FromRole="Employe" ToRole="Teams" />
+  </EntityType>
+  <EntityType Name="MaterialsInSeller">
+    <Key>
+      <PropertyRef Name="MaterialName" />
+    </Key>
+    <Property Name="SellerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MaterialName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Prise" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="AdditionalDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Seller" Relationship="Self.FK__Materials__Selle__6383C8BA" FromRole="MaterialsInSellers" ToRole="Sellers" />
+    <NavigationProperty Name="UsedMaterials" Relationship="Self.FK__UsedMater__Mater__74AE54BC" FromRole="MaterialsInSellers" ToRole="UsedMaterials" />
+  </EntityType>
+  <EntityType Name="Seller">
+    <Key>
+      <PropertyRef Name="SellerName" />
+    </Key>
+    <Property Name="SellerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TelephoneNumber" Type="Int64" Nullable="false" />
+    <Property Name="AdditionalDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="MaterialsInSellers" Relationship="Self.FK__Materials__Selle__6383C8BA" FromRole="Sellers" ToRole="MaterialsInSellers" />
+  </EntityType>
+  <EntityType Name="Team">
+    <Key>
+      <PropertyRef Name="TeamName" />
+    </Key>
+    <Property Name="TeamName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Cheif" Type="Int32" />
+    <Property Name="AdditionalDescription" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Employe" Relationship="Self.FK__Teams__Cheif__6B24EA82" FromRole="Teams" ToRole="Employe" />
+    <NavigationProperty Name="workSchedules" Relationship="Self.FK__workSchedu__Team__778AC167" FromRole="Teams" ToRole="workSchedule" />
+  </EntityType>
+  <EntityType Name="UsedMaterial">
+    <Key>
+      <PropertyRef Name="ContractNumber" />
+      <PropertyRef Name="MaterialName" />
+    </Key>
+    <Property Name="ContractNumber" Type="Int32" Nullable="false" />
+    <Property Name="MaterialName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Cost" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="MaterialCount" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Contract" Relationship="Self.FK__UsedMater__Contr__73BA3083" FromRole="UsedMaterials" ToRole="Contracts" />
+    <NavigationProperty Name="MaterialsInSeller" Relationship="Self.FK__UsedMater__Mater__74AE54BC" FromRole="UsedMaterials" ToRole="MaterialsInSellers" />
+  </EntityType>
+  <EntityType Name="workSchedule">
+    <Key>
+      <PropertyRef Name="ContractNumber" />
+      <PropertyRef Name="WorkDescription" />
+      <PropertyRef Name="Team" />
+      <PropertyRef Name="StartDate" />
+      <PropertyRef Name="EndDate" />
+    </Key>
+    <Property Name="ContractNumber" Type="Int32" Nullable="false" />
+    <Property Name="WorkDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Team" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="AdditionalDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Contract" Relationship="Self.FK__workSched__Contr__76969D2E" FromRole="workSchedule" ToRole="Contracts" />
+    <NavigationProperty Name="Team1" Relationship="Self.FK__workSchedu__Team__778AC167" FromRole="workSchedule" ToRole="Teams" />
+  </EntityType>
+  <Association Name="FK__UsedMater__Contr__73BA3083">
+    <End Role="Contracts" Type="Self.Contract" Multiplicity="1" />
+    <End Role="UsedMaterials" Type="Self.UsedMaterial" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contracts">
+        <PropertyRef Name="Number" />
+      </Principal>
+      <Dependent Role="UsedMaterials">
+        <PropertyRef Name="ContractNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__workSched__Contr__76969D2E">
+    <End Role="Contracts" Type="Self.Contract" Multiplicity="1" />
+    <End Role="workSchedule" Type="Self.workSchedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contracts">
+        <PropertyRef Name="Number" />
+      </Principal>
+      <Dependent Role="workSchedule">
+        <PropertyRef Name="ContractNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Teams__Cheif__6B24EA82">
+    <End Role="Employe" Type="Self.Employe" Multiplicity="0..1" />
+    <End Role="Teams" Type="Self.Team" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employe">
+        <PropertyRef Name="RegistrationNumber" />
+      </Principal>
+      <Dependent Role="Teams">
+        <PropertyRef Name="Cheif" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Materials__Selle__6383C8BA">
+    <End Role="Sellers" Type="Self.Seller" Multiplicity="1" />
+    <End Role="MaterialsInSellers" Type="Self.MaterialsInSeller" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sellers">
+        <PropertyRef Name="SellerName" />
+      </Principal>
+      <Dependent Role="MaterialsInSellers">
+        <PropertyRef Name="SellerName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UsedMater__Mater__74AE54BC">
+    <End Role="MaterialsInSellers" Type="Self.MaterialsInSeller" Multiplicity="1" />
+    <End Role="UsedMaterials" Type="Self.UsedMaterial" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MaterialsInSellers">
+        <PropertyRef Name="MaterialName" />
+      </Principal>
+      <Dependent Role="UsedMaterials">
+        <PropertyRef Name="MaterialName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__workSchedu__Team__778AC167">
+    <End Role="Teams" Type="Self.Team" Multiplicity="1" />
+    <End Role="workSchedule" Type="Self.workSchedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teams">
+        <PropertyRef Name="TeamName" />
+      </Principal>
+      <Dependent Role="workSchedule">
+        <PropertyRef Name="Team" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="buildingCompanyEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Contracts" EntityType="Self.Contract" />
+    <EntitySet Name="Employes" EntityType="Self.Employe" />
+    <EntitySet Name="MaterialsInSellers" EntityType="Self.MaterialsInSeller" />
+    <EntitySet Name="Sellers" EntityType="Self.Seller" />
+    <EntitySet Name="Teams" EntityType="Self.Team" />
+    <EntitySet Name="UsedMaterials" EntityType="Self.UsedMaterial" />
+    <EntitySet Name="workSchedules" EntityType="Self.workSchedule" />
+    <AssociationSet Name="FK__UsedMater__Contr__73BA3083" Association="Self.FK__UsedMater__Contr__73BA3083">
+      <End Role="Contracts" EntitySet="Contracts" />
+      <End Role="UsedMaterials" EntitySet="UsedMaterials" />
+    </AssociationSet>
+    <AssociationSet Name="FK__workSched__Contr__76969D2E" Association="Self.FK__workSched__Contr__76969D2E">
+      <End Role="Contracts" EntitySet="Contracts" />
+      <End Role="workSchedule" EntitySet="workSchedules" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Teams__Cheif__6B24EA82" Association="Self.FK__Teams__Cheif__6B24EA82">
+      <End Role="Employe" EntitySet="Employes" />
+      <End Role="Teams" EntitySet="Teams" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Materials__Selle__6383C8BA" Association="Self.FK__Materials__Selle__6383C8BA">
+      <End Role="Sellers" EntitySet="Sellers" />
+      <End Role="MaterialsInSellers" EntitySet="MaterialsInSellers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UsedMater__Mater__74AE54BC" Association="Self.FK__UsedMater__Mater__74AE54BC">
+      <End Role="MaterialsInSellers" EntitySet="MaterialsInSellers" />
+      <End Role="UsedMaterials" EntitySet="UsedMaterials" />
+    </AssociationSet>
+    <AssociationSet Name="FK__workSchedu__Team__778AC167" Association="Self.FK__workSchedu__Team__778AC167">
+      <End Role="Teams" EntitySet="Teams" />
+      <End Role="workSchedule" EntitySet="workSchedules" />
+    </AssociationSet>
+    <FunctionImport Name="AddContract">
+      <Parameter Name="ClientSurname" Mode="In" Type="String" />
+      <Parameter Name="ClientName" Mode="In" Type="String" />
+      <Parameter Name="ClientPatronymic" Mode="In" Type="String" />
+      <Parameter Name="TelephoneNumber" Mode="In" Type="Int64" />
+      <Parameter Name="Cost" Mode="In" Type="Decimal" />
+      <Parameter Name="Document" Mode="In" Type="String" />
+      <Parameter Name="AdditionalDescription" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ContractBalance" ReturnType="Collection(buildingCompanyModel.ContractBalance_Result)">
+      <Parameter Name="ContractNumber" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="CountSellerPositionOnContract" ReturnType="Collection(buildingCompanyModel.CountSellerPositionOnContract_Result)">
+      <Parameter Name="ContractNumber" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(buildingCompanyModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(buildingCompanyModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="TeamList" ReturnType="Collection(buildingCompanyModel.TeamList_Result)">
+      <Parameter Name="TeamName" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="ContractBalance_Result">
+    <Property Type="Int32" Name="Number" Nullable="false" />
+    <Property Type="Decimal" Name="Cost" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="CostMaterials" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="Salary" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="Dohid" Nullable="true" Precision="19" />
+  </ComplexType>
+  <ComplexType Name="CountSellerPositionOnContract_Result">
+    <Property Type="Int32" Name="ContractNumber" Nullable="false" />
+    <Property Type="String" Name="SellerName" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="CountPositionInConract" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="TeamList_Result">
+    <Property Type="String" Name="TeamName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Cheif" Nullable="false" MaxLength="51" />
+    <Property Type="String" Name="Employers" Nullable="false" MaxLength="51" />
+  </ComplexType>
+</Schema>

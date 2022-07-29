@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="buildingCompanyModelStoreContainer" CdmEntityContainer="buildingCompanyEntities">
+    <EntitySetMapping Name="Contracts">
+      <EntityTypeMapping TypeName="buildingCompanyModel.Contract">
+        <MappingFragment StoreEntitySet="Contracts">
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="ClientSurname" ColumnName="ClientSurname" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="ClientPatronymic" ColumnName="ClientPatronymic" />
+          <ScalarProperty Name="TelephoneNumber" ColumnName="TelephoneNumber" />
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
+          <ScalarProperty Name="Document" ColumnName="Document" />
+          <ScalarProperty Name="AdditionalDescription" ColumnName="AdditionalDescription" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employes">
+      <EntityTypeMapping TypeName="buildingCompanyModel.Employe">
+        <MappingFragment StoreEntitySet="Employe">
+          <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="Name_" ColumnName="Name_" />
+          <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+          <ScalarProperty Name="Team" ColumnName="Team" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="Free" ColumnName="Free" />
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+          <ScalarProperty Name="DateStartWork" ColumnName="DateStartWork" />
+          <ScalarProperty Name="DateStopWork" ColumnName="DateStopWork" />
+          <ScalarProperty Name="AdditionalDescription" ColumnName="AdditionalDescription" />
+          <ScalarProperty Name="TelephoneNumber" ColumnName="TelephoneNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MaterialsInSellers">
+      <EntityTypeMapping TypeName="buildingCompanyModel.MaterialsInSeller">
+        <MappingFragment StoreEntitySet="MaterialsInSellers">
+          <ScalarProperty Name="SellerName" ColumnName="SellerName" />
+          <ScalarProperty Name="MaterialName" ColumnName="MaterialName" />
+          <ScalarProperty Name="Prise" ColumnName="Prise" />
+          <ScalarProperty Name="AdditionalDescription" ColumnName="AdditionalDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sellers">
+      <EntityTypeMapping TypeName="buildingCompanyModel.Seller">
+        <MappingFragment StoreEntitySet="Sellers">
+          <ScalarProperty Name="SellerName" ColumnName="SellerName" />
+          <ScalarProperty Name="TelephoneNumber" ColumnName="TelephoneNumber" />
+          <ScalarProperty Name="AdditionalDescription" ColumnName="AdditionalDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Teams">
+      <EntityTypeMapping TypeName="buildingCompanyModel.Team">
+        <MappingFragment StoreEntitySet="Teams">
+          <ScalarProperty Name="TeamName" ColumnName="TeamName" />
+          <ScalarProperty Name="Cheif" ColumnName="Cheif" />
+          <ScalarProperty Name="AdditionalDescription" ColumnName="AdditionalDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsedMaterials">
+      <EntityTypeMapping TypeName="buildingCompanyModel.UsedMaterial">
+        <MappingFragment StoreEntitySet="UsedMaterials">
+          <ScalarProperty Name="ContractNumber" ColumnName="ContractNumber" />
+          <ScalarProperty Name="MaterialName" ColumnName="MaterialName" />
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
+          <ScalarProperty Name="MaterialCount" ColumnName="MaterialCount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="workSchedules">
+      <EntityTypeMapping TypeName="buildingCompanyModel.workSchedule">
+        <MappingFragment StoreEntitySet="workSchedule">
+          <ScalarProperty Name="ContractNumber" ColumnName="ContractNumber" />
+          <ScalarProperty Name="WorkDescription" ColumnName="WorkDescription" />
+          <ScalarProperty Name="Team" ColumnName="Team" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="AdditionalDescription" ColumnName="AdditionalDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="AddContract" FunctionName="buildingCompanyModel.Store.AddContract" />
+    <FunctionImportMapping FunctionImportName="ContractBalance" FunctionName="buildingCompanyModel.Store.ContractBalance">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="buildingCompanyModel.ContractBalance_Result">
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
+          <ScalarProperty Name="CostMaterials" ColumnName="CostMaterials" />
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+          <ScalarProperty Name="Dohid" ColumnName="Dohid" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="CountSellerPositionOnContract" FunctionName="buildingCompanyModel.Store.CountSellerPositionOnContract">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="buildingCompanyModel.CountSellerPositionOnContract_Result">
+          <ScalarProperty Name="ContractNumber" ColumnName="ContractNumber" />
+          <ScalarProperty Name="SellerName" ColumnName="SellerName" />
+          <ScalarProperty Name="CountPositionInConract" ColumnName="CountPositionInConract" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="buildingCompanyModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="buildingCompanyModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="buildingCompanyModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="buildingCompanyModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="buildingCompanyModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="buildingCompanyModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="buildingCompanyModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="buildingCompanyModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="buildingCompanyModel.Store.sp_upgraddiagrams" />
+    <FunctionImportMapping FunctionImportName="TeamList" FunctionName="buildingCompanyModel.Store.TeamList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="buildingCompanyModel.TeamList_Result">
+          <ScalarProperty Name="TeamName" ColumnName="TeamName" />
+          <ScalarProperty Name="Cheif" ColumnName="Cheif" />
+          <ScalarProperty Name="Employers" ColumnName="Employers" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

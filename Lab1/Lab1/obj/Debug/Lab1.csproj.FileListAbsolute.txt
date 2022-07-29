@@ -1,0 +1,14 @@
+D:\Остроград\Остроград_3курс\2 семестр\на продажу\Женя Шпак\Lab1\Lab1\bin\Debug\Lab1.exe.config
+D:\Остроград\Остроград_3курс\2 семестр\на продажу\Женя Шпак\Lab1\Lab1\bin\Debug\Lab1.exe
+D:\Остроград\Остроград_3курс\2 семестр\на продажу\Женя Шпак\Lab1\Lab1\bin\Debug\Lab1.pdb
+D:\Остроград\Остроград_3курс\2 семестр\на продажу\Женя Шпак\Lab1\Lab1\obj\Debug\Lab1.csprojAssemblyReference.cache
+D:\Остроград\Остроград_3курс\2 семестр\на продажу\Женя Шпак\Lab1\Lab1\obj\Debug\Lab1.csproj.CoreCompileInputs.cache
+D:\Остроград\Остроград_3курс\2 семестр\на продажу\Женя Шпак\Lab1\Lab1\obj\Debug\Lab1.exe
+D:\Остроград\Остроград_3курс\2 семестр\на продажу\Женя Шпак\Lab1\Lab1\obj\Debug\Lab1.pdb
+D:\Остроград\Остроград_3курс\2 семестр\БД\Lab1\Lab1\bin\Debug\Lab1.exe.config
+D:\Остроград\Остроград_3курс\2 семестр\БД\Lab1\Lab1\bin\Debug\Lab1.exe
+D:\Остроград\Остроград_3курс\2 семестр\БД\Lab1\Lab1\bin\Debug\Lab1.pdb
+D:\Остроград\Остроград_3курс\2 семестр\БД\Lab1\Lab1\obj\Debug\Lab1.csprojAssemblyReference.cache
+D:\Остроград\Остроград_3курс\2 семестр\БД\Lab1\Lab1\obj\Debug\Lab1.csproj.CoreCompileInputs.cache
+D:\Остроград\Остроград_3курс\2 семестр\БД\Lab1\Lab1\obj\Debug\Lab1.exe
+D:\Остроград\Остроград_3курс\2 семестр\БД\Lab1\Lab1\obj\Debug\Lab1.pdb

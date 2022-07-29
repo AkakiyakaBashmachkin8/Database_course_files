@@ -1,0 +1,695 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="buildingCompanyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Contracts">
+          <Key>
+            <PropertyRef Name="Number" />
+          </Key>
+          <Property Name="Number" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientSurname" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="ClientPatronymic" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="TelephoneNumber" Type="bigint" Nullable="false" />
+          <Property Name="Cost" Type="money" />
+          <Property Name="Document" Type="nvarchar" MaxLength="200" />
+          <Property Name="AdditionalDescription" Type="nvarchar" MaxLength="1" />
+          <Property Name="EndDate" Type="date" />
+        </EntityType>
+        <EntityType Name="Employe">
+          <Key>
+            <PropertyRef Name="RegistrationNumber" />
+          </Key>
+          <Property Name="RegistrationNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Name_" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Team" Type="nvarchar" MaxLength="50" />
+          <Property Name="Position" Type="nvarchar" MaxLength="100" />
+          <Property Name="Free" Type="bit" />
+          <Property Name="Salary" Type="money" Nullable="false" />
+          <Property Name="DateStartWork" Type="date" Nullable="false" />
+          <Property Name="DateStopWork" Type="date" />
+          <Property Name="AdditionalDescription" Type="nvarchar" MaxLength="200" />
+          <Property Name="TelephoneNumber" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MaterialsInSellers">
+          <Key>
+            <PropertyRef Name="MaterialName" />
+          </Key>
+          <Property Name="SellerName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="MaterialName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Prise" Type="money" Nullable="false" />
+          <Property Name="AdditionalDescription" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Sellers">
+          <Key>
+            <PropertyRef Name="SellerName" />
+          </Key>
+          <Property Name="SellerName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TelephoneNumber" Type="bigint" Nullable="false" />
+          <Property Name="AdditionalDescription" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Teams">
+          <Key>
+            <PropertyRef Name="TeamName" />
+          </Key>
+          <Property Name="TeamName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cheif" Type="int" />
+          <Property Name="AdditionalDescription" Type="nvarchar" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="UsedMaterials">
+          <Key>
+            <PropertyRef Name="ContractNumber" />
+            <PropertyRef Name="MaterialName" />
+          </Key>
+          <Property Name="ContractNumber" Type="int" Nullable="false" />
+          <Property Name="MaterialName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Cost" Type="money" Nullable="false" />
+          <Property Name="MaterialCount" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'buildingCompany.dbo.VacationSchedule' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'buildingCompany.dbo.workSchedule' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="workSchedule">
+          <Key>
+            <PropertyRef Name="ContractNumber" />
+            <PropertyRef Name="WorkDescription" />
+            <PropertyRef Name="Team" />
+            <PropertyRef Name="StartDate" />
+            <PropertyRef Name="EndDate" />
+          </Key>
+          <Property Name="ContractNumber" Type="int" Nullable="false" />
+          <Property Name="WorkDescription" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Team" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="EndDate" Type="date" Nullable="false" />
+          <Property Name="AdditionalDescription" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'buildingCompany.dbo.WorkSchedules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <Association Name="FK__Materials__Selle__6383C8BA">
+          <End Role="Sellers" Type="Self.Sellers" Multiplicity="1" />
+          <End Role="MaterialsInSellers" Type="Self.MaterialsInSellers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sellers">
+              <PropertyRef Name="SellerName" />
+            </Principal>
+            <Dependent Role="MaterialsInSellers">
+              <PropertyRef Name="SellerName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Teams__Cheif__6B24EA82">
+          <End Role="Employe" Type="Self.Employe" Multiplicity="0..1" />
+          <End Role="Teams" Type="Self.Teams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employe">
+              <PropertyRef Name="RegistrationNumber" />
+            </Principal>
+            <Dependent Role="Teams">
+              <PropertyRef Name="Cheif" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsedMater__Contr__73BA3083">
+          <End Role="Contracts" Type="Self.Contracts" Multiplicity="1" />
+          <End Role="UsedMaterials" Type="Self.UsedMaterials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contracts">
+              <PropertyRef Name="Number" />
+            </Principal>
+            <Dependent Role="UsedMaterials">
+              <PropertyRef Name="ContractNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsedMater__Mater__74AE54BC">
+          <End Role="MaterialsInSellers" Type="Self.MaterialsInSellers" Multiplicity="1" />
+          <End Role="UsedMaterials" Type="Self.UsedMaterials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaterialsInSellers">
+              <PropertyRef Name="MaterialName" />
+            </Principal>
+            <Dependent Role="UsedMaterials">
+              <PropertyRef Name="MaterialName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__workSched__Contr__76969D2E">
+          <End Role="Contracts" Type="Self.Contracts" Multiplicity="1" />
+          <End Role="workSchedule" Type="Self.workSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contracts">
+              <PropertyRef Name="Number" />
+            </Principal>
+            <Dependent Role="workSchedule">
+              <PropertyRef Name="ContractNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__workSchedu__Team__778AC167">
+          <End Role="Teams" Type="Self.Teams" Multiplicity="1" />
+          <End Role="workSchedule" Type="Self.workSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="TeamName" />
+            </Principal>
+            <Dependent Role="workSchedule">
+              <PropertyRef Name="Team" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AddContract" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ClientSurname" Type="nvarchar" Mode="In" />
+          <Parameter Name="ClientName" Type="nvarchar" Mode="In" />
+          <Parameter Name="ClientPatronymic" Type="nvarchar" Mode="In" />
+          <Parameter Name="TelephoneNumber" Type="bigint" Mode="In" />
+          <Parameter Name="Cost" Type="money" Mode="In" />
+          <Parameter Name="Document" Type="nvarchar" Mode="In" />
+          <Parameter Name="AdditionalDescription" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="ContractBalance" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ContractNumber" Type="int" Mode="In" />
+        </Function>
+        <Function Name="CountSellerPositionOnContract" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ContractNumber" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="TeamList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TeamName" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="buildingCompanyModelStoreContainer">
+          <EntitySet Name="Contracts" EntityType="Self.Contracts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employe" EntityType="Self.Employe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MaterialsInSellers" EntityType="Self.MaterialsInSellers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sellers" EntityType="Self.Sellers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teams" EntityType="Self.Teams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsedMaterials" EntityType="Self.UsedMaterials" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="workSchedule" EntityType="Self.workSchedule" store:Type="Tables" Schema="dbo">
+          </EntitySet>
+          <AssociationSet Name="FK__Materials__Selle__6383C8BA" Association="Self.FK__Materials__Selle__6383C8BA">
+            <End Role="Sellers" EntitySet="Sellers" />
+            <End Role="MaterialsInSellers" EntitySet="MaterialsInSellers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Teams__Cheif__6B24EA82" Association="Self.FK__Teams__Cheif__6B24EA82">
+            <End Role="Employe" EntitySet="Employe" />
+            <End Role="Teams" EntitySet="Teams" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsedMater__Contr__73BA3083" Association="Self.FK__UsedMater__Contr__73BA3083">
+            <End Role="Contracts" EntitySet="Contracts" />
+            <End Role="UsedMaterials" EntitySet="UsedMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsedMater__Mater__74AE54BC" Association="Self.FK__UsedMater__Mater__74AE54BC">
+            <End Role="MaterialsInSellers" EntitySet="MaterialsInSellers" />
+            <End Role="UsedMaterials" EntitySet="UsedMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK__workSched__Contr__76969D2E" Association="Self.FK__workSched__Contr__76969D2E">
+            <End Role="Contracts" EntitySet="Contracts" />
+            <End Role="workSchedule" EntitySet="workSchedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK__workSchedu__Team__778AC167" Association="Self.FK__workSchedu__Team__778AC167">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="workSchedule" EntitySet="workSchedule" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="buildingCompanyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Contract">
+          <Key>
+            <PropertyRef Name="Number" />
+          </Key>
+          <Property Name="Number" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientSurname" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClientName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClientPatronymic" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TelephoneNumber" Type="Int64" Nullable="false" />
+          <Property Name="Cost" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Document" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AdditionalDescription" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="UsedMaterials" Relationship="Self.FK__UsedMater__Contr__73BA3083" FromRole="Contracts" ToRole="UsedMaterials" />
+          <NavigationProperty Name="workSchedules" Relationship="Self.FK__workSched__Contr__76969D2E" FromRole="Contracts" ToRole="workSchedule" />
+        </EntityType>
+        <EntityType Name="Employe">
+          <Key>
+            <PropertyRef Name="RegistrationNumber" />
+          </Key>
+          <Property Name="RegistrationNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name_" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Patronymic" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Team" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Position" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Free" Type="Boolean" />
+          <Property Name="Salary" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="DateStartWork" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DateStopWork" Type="DateTime" Precision="0" />
+          <Property Name="AdditionalDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TelephoneNumber" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Teams" Relationship="Self.FK__Teams__Cheif__6B24EA82" FromRole="Employe" ToRole="Teams" />
+        </EntityType>
+        <EntityType Name="MaterialsInSeller">
+          <Key>
+            <PropertyRef Name="MaterialName" />
+          </Key>
+          <Property Name="SellerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MaterialName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Prise" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="AdditionalDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Seller" Relationship="Self.FK__Materials__Selle__6383C8BA" FromRole="MaterialsInSellers" ToRole="Sellers" />
+          <NavigationProperty Name="UsedMaterials" Relationship="Self.FK__UsedMater__Mater__74AE54BC" FromRole="MaterialsInSellers" ToRole="UsedMaterials" />
+        </EntityType>
+        <EntityType Name="Seller">
+          <Key>
+            <PropertyRef Name="SellerName" />
+          </Key>
+          <Property Name="SellerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TelephoneNumber" Type="Int64" Nullable="false" />
+          <Property Name="AdditionalDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MaterialsInSellers" Relationship="Self.FK__Materials__Selle__6383C8BA" FromRole="Sellers" ToRole="MaterialsInSellers" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="TeamName" />
+          </Key>
+          <Property Name="TeamName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cheif" Type="Int32" />
+          <Property Name="AdditionalDescription" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employe" Relationship="Self.FK__Teams__Cheif__6B24EA82" FromRole="Teams" ToRole="Employe" />
+          <NavigationProperty Name="workSchedules" Relationship="Self.FK__workSchedu__Team__778AC167" FromRole="Teams" ToRole="workSchedule" />
+        </EntityType>
+        <EntityType Name="UsedMaterial">
+          <Key>
+            <PropertyRef Name="ContractNumber" />
+            <PropertyRef Name="MaterialName" />
+          </Key>
+          <Property Name="ContractNumber" Type="Int32" Nullable="false" />
+          <Property Name="MaterialName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cost" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="MaterialCount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Contract" Relationship="Self.FK__UsedMater__Contr__73BA3083" FromRole="UsedMaterials" ToRole="Contracts" />
+          <NavigationProperty Name="MaterialsInSeller" Relationship="Self.FK__UsedMater__Mater__74AE54BC" FromRole="UsedMaterials" ToRole="MaterialsInSellers" />
+        </EntityType>
+        <EntityType Name="workSchedule">
+          <Key>
+            <PropertyRef Name="ContractNumber" />
+            <PropertyRef Name="WorkDescription" />
+            <PropertyRef Name="Team" />
+            <PropertyRef Name="StartDate" />
+            <PropertyRef Name="EndDate" />
+          </Key>
+          <Property Name="ContractNumber" Type="Int32" Nullable="false" />
+          <Property Name="WorkDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Team" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="AdditionalDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Contract" Relationship="Self.FK__workSched__Contr__76969D2E" FromRole="workSchedule" ToRole="Contracts" />
+          <NavigationProperty Name="Team1" Relationship="Self.FK__workSchedu__Team__778AC167" FromRole="workSchedule" ToRole="Teams" />
+        </EntityType>
+        <Association Name="FK__UsedMater__Contr__73BA3083">
+          <End Role="Contracts" Type="Self.Contract" Multiplicity="1" />
+          <End Role="UsedMaterials" Type="Self.UsedMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contracts">
+              <PropertyRef Name="Number" />
+            </Principal>
+            <Dependent Role="UsedMaterials">
+              <PropertyRef Name="ContractNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__workSched__Contr__76969D2E">
+          <End Role="Contracts" Type="Self.Contract" Multiplicity="1" />
+          <End Role="workSchedule" Type="Self.workSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contracts">
+              <PropertyRef Name="Number" />
+            </Principal>
+            <Dependent Role="workSchedule">
+              <PropertyRef Name="ContractNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Teams__Cheif__6B24EA82">
+          <End Role="Employe" Type="Self.Employe" Multiplicity="0..1" />
+          <End Role="Teams" Type="Self.Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employe">
+              <PropertyRef Name="RegistrationNumber" />
+            </Principal>
+            <Dependent Role="Teams">
+              <PropertyRef Name="Cheif" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Materials__Selle__6383C8BA">
+          <End Role="Sellers" Type="Self.Seller" Multiplicity="1" />
+          <End Role="MaterialsInSellers" Type="Self.MaterialsInSeller" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sellers">
+              <PropertyRef Name="SellerName" />
+            </Principal>
+            <Dependent Role="MaterialsInSellers">
+              <PropertyRef Name="SellerName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsedMater__Mater__74AE54BC">
+          <End Role="MaterialsInSellers" Type="Self.MaterialsInSeller" Multiplicity="1" />
+          <End Role="UsedMaterials" Type="Self.UsedMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaterialsInSellers">
+              <PropertyRef Name="MaterialName" />
+            </Principal>
+            <Dependent Role="UsedMaterials">
+              <PropertyRef Name="MaterialName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__workSchedu__Team__778AC167">
+          <End Role="Teams" Type="Self.Team" Multiplicity="1" />
+          <End Role="workSchedule" Type="Self.workSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="TeamName" />
+            </Principal>
+            <Dependent Role="workSchedule">
+              <PropertyRef Name="Team" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="buildingCompanyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Contracts" EntityType="Self.Contract" />
+          <EntitySet Name="Employes" EntityType="Self.Employe" />
+          <EntitySet Name="MaterialsInSellers" EntityType="Self.MaterialsInSeller" />
+          <EntitySet Name="Sellers" EntityType="Self.Seller" />
+          <EntitySet Name="Teams" EntityType="Self.Team" />
+          <EntitySet Name="UsedMaterials" EntityType="Self.UsedMaterial" />
+          <EntitySet Name="workSchedules" EntityType="Self.workSchedule" />
+          <AssociationSet Name="FK__UsedMater__Contr__73BA3083" Association="Self.FK__UsedMater__Contr__73BA3083">
+            <End Role="Contracts" EntitySet="Contracts" />
+            <End Role="UsedMaterials" EntitySet="UsedMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK__workSched__Contr__76969D2E" Association="Self.FK__workSched__Contr__76969D2E">
+            <End Role="Contracts" EntitySet="Contracts" />
+            <End Role="workSchedule" EntitySet="workSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Teams__Cheif__6B24EA82" Association="Self.FK__Teams__Cheif__6B24EA82">
+            <End Role="Employe" EntitySet="Employes" />
+            <End Role="Teams" EntitySet="Teams" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Materials__Selle__6383C8BA" Association="Self.FK__Materials__Selle__6383C8BA">
+            <End Role="Sellers" EntitySet="Sellers" />
+            <End Role="MaterialsInSellers" EntitySet="MaterialsInSellers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsedMater__Mater__74AE54BC" Association="Self.FK__UsedMater__Mater__74AE54BC">
+            <End Role="MaterialsInSellers" EntitySet="MaterialsInSellers" />
+            <End Role="UsedMaterials" EntitySet="UsedMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK__workSchedu__Team__778AC167" Association="Self.FK__workSchedu__Team__778AC167">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="workSchedule" EntitySet="workSchedules" />
+          </AssociationSet>
+          <FunctionImport Name="AddContract">
+            <Parameter Name="ClientSurname" Mode="In" Type="String" />
+            <Parameter Name="ClientName" Mode="In" Type="String" />
+            <Parameter Name="ClientPatronymic" Mode="In" Type="String" />
+            <Parameter Name="TelephoneNumber" Mode="In" Type="Int64" />
+            <Parameter Name="Cost" Mode="In" Type="Decimal" />
+            <Parameter Name="Document" Mode="In" Type="String" />
+            <Parameter Name="AdditionalDescription" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ContractBalance" ReturnType="Collection(buildingCompanyModel.ContractBalance_Result)">
+            <Parameter Name="ContractNumber" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CountSellerPositionOnContract" ReturnType="Collection(buildingCompanyModel.CountSellerPositionOnContract_Result)">
+            <Parameter Name="ContractNumber" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(buildingCompanyModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(buildingCompanyModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="TeamList" ReturnType="Collection(buildingCompanyModel.TeamList_Result)">
+            <Parameter Name="TeamName" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="ContractBalance_Result">
+          <Property Type="Int32" Name="Number" Nullable="false" />
+          <Property Type="Decimal" Name="Cost" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="CostMaterials" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="Salary" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="Dohid" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="CountSellerPositionOnContract_Result">
+          <Property Type="Int32" Name="ContractNumber" Nullable="false" />
+          <Property Type="String" Name="SellerName" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="CountPositionInConract" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="TeamList_Result">
+          <Property Type="String" Name="TeamName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Cheif" Nullable="false" MaxLength="51" />
+          <Property Type="String" Name="Employers" Nullable="false" MaxLength="51" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="buildingCompanyModelStoreContainer" CdmEntityContainer="buildingCompanyEntities">
+          <EntitySetMapping Name="Contracts">
+            <EntityTypeMapping TypeName="buildingCompanyModel.Contract">
+              <MappingFragment StoreEntitySet="Contracts">
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="ClientSurname" ColumnName="ClientSurname" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="ClientPatronymic" ColumnName="ClientPatronymic" />
+                <ScalarProperty Name="TelephoneNumber" ColumnName="TelephoneNumber" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Document" ColumnName="Document" />
+                <ScalarProperty Name="AdditionalDescription" ColumnName="AdditionalDescription" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employes">
+            <EntityTypeMapping TypeName="buildingCompanyModel.Employe">
+              <MappingFragment StoreEntitySet="Employe">
+                <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name_" ColumnName="Name_" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="Team" ColumnName="Team" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Free" ColumnName="Free" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="DateStartWork" ColumnName="DateStartWork" />
+                <ScalarProperty Name="DateStopWork" ColumnName="DateStopWork" />
+                <ScalarProperty Name="AdditionalDescription" ColumnName="AdditionalDescription" />
+                <ScalarProperty Name="TelephoneNumber" ColumnName="TelephoneNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MaterialsInSellers">
+            <EntityTypeMapping TypeName="buildingCompanyModel.MaterialsInSeller">
+              <MappingFragment StoreEntitySet="MaterialsInSellers">
+                <ScalarProperty Name="SellerName" ColumnName="SellerName" />
+                <ScalarProperty Name="MaterialName" ColumnName="MaterialName" />
+                <ScalarProperty Name="Prise" ColumnName="Prise" />
+                <ScalarProperty Name="AdditionalDescription" ColumnName="AdditionalDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sellers">
+            <EntityTypeMapping TypeName="buildingCompanyModel.Seller">
+              <MappingFragment StoreEntitySet="Sellers">
+                <ScalarProperty Name="SellerName" ColumnName="SellerName" />
+                <ScalarProperty Name="TelephoneNumber" ColumnName="TelephoneNumber" />
+                <ScalarProperty Name="AdditionalDescription" ColumnName="AdditionalDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teams">
+            <EntityTypeMapping TypeName="buildingCompanyModel.Team">
+              <MappingFragment StoreEntitySet="Teams">
+                <ScalarProperty Name="TeamName" ColumnName="TeamName" />
+                <ScalarProperty Name="Cheif" ColumnName="Cheif" />
+                <ScalarProperty Name="AdditionalDescription" ColumnName="AdditionalDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsedMaterials">
+            <EntityTypeMapping TypeName="buildingCompanyModel.UsedMaterial">
+              <MappingFragment StoreEntitySet="UsedMaterials">
+                <ScalarProperty Name="ContractNumber" ColumnName="ContractNumber" />
+                <ScalarProperty Name="MaterialName" ColumnName="MaterialName" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="MaterialCount" ColumnName="MaterialCount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="workSchedules">
+            <EntityTypeMapping TypeName="buildingCompanyModel.workSchedule">
+              <MappingFragment StoreEntitySet="workSchedule">
+                <ScalarProperty Name="ContractNumber" ColumnName="ContractNumber" />
+                <ScalarProperty Name="WorkDescription" ColumnName="WorkDescription" />
+                <ScalarProperty Name="Team" ColumnName="Team" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="AdditionalDescription" ColumnName="AdditionalDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AddContract" FunctionName="buildingCompanyModel.Store.AddContract" />
+          <FunctionImportMapping FunctionImportName="ContractBalance" FunctionName="buildingCompanyModel.Store.ContractBalance">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="buildingCompanyModel.ContractBalance_Result">
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="CostMaterials" ColumnName="CostMaterials" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="Dohid" ColumnName="Dohid" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CountSellerPositionOnContract" FunctionName="buildingCompanyModel.Store.CountSellerPositionOnContract">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="buildingCompanyModel.CountSellerPositionOnContract_Result">
+                <ScalarProperty Name="ContractNumber" ColumnName="ContractNumber" />
+                <ScalarProperty Name="SellerName" ColumnName="SellerName" />
+                <ScalarProperty Name="CountPositionInConract" ColumnName="CountPositionInConract" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="buildingCompanyModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="buildingCompanyModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="buildingCompanyModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="buildingCompanyModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="buildingCompanyModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="buildingCompanyModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="buildingCompanyModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="buildingCompanyModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="buildingCompanyModel.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="TeamList" FunctionName="buildingCompanyModel.Store.TeamList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="buildingCompanyModel.TeamList_Result">
+                <ScalarProperty Name="TeamName" ColumnName="TeamName" />
+                <ScalarProperty Name="Cheif" ColumnName="Cheif" />
+                <ScalarProperty Name="Employers" ColumnName="Employers" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="399c8ec18b1d46a69ae2ce9b653649cf" Name="Diagram1">
+        <EntityTypeShape EntityType="buildingCompanyModel.Contract" Width="1.5" PointX="6.875" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="buildingCompanyModel.Employe" Width="1.5" PointX="2.625" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="buildingCompanyModel.MaterialsInSeller" Width="1.5" PointX="2.625" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="buildingCompanyModel.Seller" Width="1.5" PointX="0.5" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="buildingCompanyModel.Team" Width="1.5" PointX="4.75" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="buildingCompanyModel.UsedMaterial" Width="1.5" PointX="4.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="buildingCompanyModel.workSchedule" Width="1.5" PointX="6.875" PointY="11.875" IsExpanded="true" />
+        <AssociationConnector Association="buildingCompanyModel.FK__UsedMater__Contr__73BA3083" ManuallyRouted="false" />
+        <AssociationConnector Association="buildingCompanyModel.FK__workSched__Contr__76969D2E" ManuallyRouted="false" />
+        <AssociationConnector Association="buildingCompanyModel.FK__Teams__Cheif__6B24EA82" ManuallyRouted="false" />
+        <AssociationConnector Association="buildingCompanyModel.FK__Materials__Selle__6383C8BA" ManuallyRouted="false" />
+        <AssociationConnector Association="buildingCompanyModel.FK__UsedMater__Mater__74AE54BC" ManuallyRouted="false" />
+        <AssociationConnector Association="buildingCompanyModel.FK__workSchedu__Team__778AC167" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

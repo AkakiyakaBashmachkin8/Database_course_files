@@ -1,0 +1,7 @@
+D:\Остроград\Остроград_3курс\2 семестр\БД\Lab3\Lab3\bin\Debug\Lab3.exe.config
+D:\Остроград\Остроград_3курс\2 семестр\БД\Lab3\Lab3\bin\Debug\Lab3.exe
+D:\Остроград\Остроград_3курс\2 семестр\БД\Lab3\Lab3\bin\Debug\Lab3.pdb
+D:\Остроград\Остроград_3курс\2 семестр\БД\Lab3\Lab3\obj\Debug\Lab3.csprojAssemblyReference.cache
+D:\Остроград\Остроград_3курс\2 семестр\БД\Lab3\Lab3\obj\Debug\Lab3.csproj.CoreCompileInputs.cache
+D:\Остроград\Остроград_3курс\2 семестр\БД\Lab3\Lab3\obj\Debug\Lab3.exe
+D:\Остроград\Остроград_3курс\2 семестр\БД\Lab3\Lab3\obj\Debug\Lab3.pdb
